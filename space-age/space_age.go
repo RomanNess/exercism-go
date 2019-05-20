@@ -1,5 +1,10 @@
 package space
 
+import (
+	"errors"
+	"fmt"
+)
+
 type Planet string
 
 const (
@@ -25,6 +30,10 @@ var secondsInYearByPlanet = map[Planet]float64{
 	neptune: secondsInEarthYear * 164.79132,
 }
 
-func Age(seconds float64, planet Planet) float64 {
-	return seconds / secondsInYearByPlanet[planet];
+func Age(seconds float64, planet Planet) (result float64, err error) {
+	secondsInYear, ok := secondsInYearByPlanet[planet]
+	if !ok {
+		return result, errors.New(fmt.Sprintf("%s is no planet.", planet))
+	}
+	return seconds / secondsInYear, nil;
 }
