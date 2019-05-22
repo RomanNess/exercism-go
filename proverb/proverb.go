@@ -10,18 +10,11 @@ func Proverb(nouns []string) (rhymes []string) {
 		return rhymes
 	}
 
+	rhymes = make([]string, len(nouns))
 	for i := 0; i < len(nouns)-1; i++ {
-		appendProverb(&rhymes, nouns[i:])
+		rhymes[i] = fmt.Sprintf("For want of a %s the %s was lost.", nouns[i], nouns[i+1])
 	}
 
-	appendLastProverb(&rhymes, nouns[0])
+	rhymes[len(nouns)-1] = fmt.Sprintf("And all for the want of a %s.", nouns[0])
 	return
-}
-
-func appendProverb(rhymes *[]string, nouns []string) {
-	*rhymes = append(*rhymes, fmt.Sprintf("For want of a %s the %s was lost.", nouns[0], nouns[1]))
-}
-
-func appendLastProverb(rhymes *[]string, noun string) {
-	*rhymes = append(*rhymes, fmt.Sprintf("And all for the want of a %s.", noun))
 }
