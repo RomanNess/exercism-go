@@ -36,10 +36,14 @@ func KindFromSides(a, b, c float64) Kind {
 func validateAndSortTriangleSides(a float64, b float64, c float64) (float64, float64, float64, error) {
 	sides := []float64{a, b, c}
 	for _, side := range sides {
-		if side <= 0 || math.IsNaN(side) || math.IsInf(side, 0) {
+		if triangleSideIsInvalid(side) {
 			return 0, 0, 0, errors.New("at least one triangle side is invalid")
 		}
 	}
 	sort.Float64s(sides)
 	return sides[0], sides[1], sides[2], nil
+}
+
+func triangleSideIsInvalid(side float64) bool {
+	return side <= 0 || math.IsNaN(side) || math.IsInf(side, 0)
 }
