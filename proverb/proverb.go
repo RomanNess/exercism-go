@@ -4,16 +4,24 @@ package proverb
 import "fmt"
 
 // Proverb provides proverbial rhymes for a list of nouns
-func Proverb(rhyme []string) (phrases []string) {
+func Proverb(nouns []string) (rhymes []string) {
 
-	if len(rhyme) == 0 {
-		return phrases
+	if len(nouns) == 0 {
+		return rhymes
 	}
 
-	for i := 1; i < len(rhyme); i++ {
-		phrases = append(phrases, fmt.Sprintf("For want of a %s the %s was lost.", rhyme[i-1], rhyme[i]))
+	for i := 0; i < len(nouns)-1; i++ {
+		appendProverb(&rhymes, nouns[i:])
 	}
 
-	phrases = append(phrases, fmt.Sprintf("And all for the want of a %s.", rhyme[0]))
+	appendLastProverb(&rhymes, nouns[0])
 	return
+}
+
+func appendProverb(rhymes *[]string, nouns []string) {
+	*rhymes = append(*rhymes, fmt.Sprintf("For want of a %s the %s was lost.", nouns[0], nouns[1]))
+}
+
+func appendLastProverb(rhymes *[]string, noun string) {
+	*rhymes = append(*rhymes, fmt.Sprintf("And all for the want of a %s.", noun))
 }
