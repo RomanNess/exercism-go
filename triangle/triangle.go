@@ -7,13 +7,20 @@ import (
 	"sort"
 )
 
+// Kind of a triangle
 type Kind int
 
 const (
-    NaT = iota// not a triangle
-    Equ // equilateral
-    Iso // isosceles
-    Sca // scalene
+	// NaT stand for not a triangle
+	NaT = iota
+	// Equ is an equilateral triangle
+	Equ
+	// Iso is an isosceles triangle
+	Iso
+	// Sca is a scalene triangle
+	Sca
+	// Deg is a degenerate triangle
+	Deg
 )
 
 // KindFromSides determines the kind of the triangle from the length of its sides
@@ -21,8 +28,11 @@ func KindFromSides(a, b, c float64) Kind {
 
 	var err error
 	a, b, c, err = validateAndSortTriangleSides(a, b, c)
-	if err != nil || a + b < c {
+	if err != nil || a+b < c {
 		return NaT
+	}
+	if a + b == c {
+		return Deg
 	}
 	if a == b && b == c {
 		return Equ
