@@ -64,4 +64,16 @@ var testCases = []struct {
 		0,
 		true,
 	},
+	{	// handle multi-byte runes in strings
+		s1:          "aüa",
+		s2:          "aÃa",
+		want:        1,
+		expectError: false,
+	},
+	{	// detect different length for multi-byte runes
+		s1:          "aüa",
+		s2:          "abba",
+		want:        0,
+		expectError: true,
+	},
 }

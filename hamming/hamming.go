@@ -1,17 +1,21 @@
 package hamming
 
-import "errors"
+import (
+	"errors"
+)
 
 // Distance calculates the hamming distance between two DNA strands
 func Distance(a, b string) (int, error) {
+	aRunes := []rune(a)
+	bRunes := []rune(b)
 
-	if len(a) != len(b) {
+	if len(aRunes) != len(bRunes) {
 		return 0, errors.New("dna strands have different lengths")
 	}
 
 	distance := 0
-	for idx := range a {
-		if a[idx] != b[idx] {
+	for idx := range aRunes {
+		if aRunes[idx] != bRunes[idx] {
 			distance++
 		}
 	}
