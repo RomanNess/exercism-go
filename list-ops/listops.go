@@ -60,11 +60,14 @@ func (list IntList) Filter(pred predFunc) (result IntList) {
 }
 
 // Map applies a given function to every element of an IntList
-func (list IntList) Map(fn unaryFunc) IntList {
+func (list IntList) Map(fn unaryFunc) (result IntList) {
+	result = make(IntList, list.Length())
+	copy(result, list)
+
 	for i, e := range list {
-		list[i] = fn(e)
+		result[i] = fn(e)
 	}
-	return list
+	return result
 }
 
 // Foldr performs a right fold with a given function on an IntList
