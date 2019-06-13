@@ -1,7 +1,6 @@
 package isogram
 
 import (
-	"strings"
 	"unicode"
 )
 
@@ -13,7 +12,7 @@ func IsIsogram(input string) bool {
 	for _, r := range input {
 
 		// skip on some runes
-		if strings.ContainsRune("- ", r) {
+		if r == '-' || r == ' ' {
 			continue
 		}
 
